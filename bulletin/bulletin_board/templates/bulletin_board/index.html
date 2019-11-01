@@ -6,7 +6,43 @@
 {% endblock %}
 
 {% block content %}
+    {% include "_modal.html" %}
     {% for car in page_object.object_list %}
         {% include 'bulletin_board/includes/car_card_template.html' %}
-    {% endfor %}
-{% endblock %}
+    {% endfor %}     
+{% endblock %}  
+
+{% block extrascripts %}
+  <script type="text/javascript">
+    $(function () {
+      // Log in & Sign up buttons
+      $(".login-btn").modalForm({formURL: "{% url 'login' %}"});
+      $(".signup-btn").modalForm({formURL: "{% url 'signup' %}"});
+
+      // Create book button
+      $(".create-book").modalForm({formURL: "{% url 'create_book' %}"});
+
+      // Update book buttons
+      $(".update-book").each(function () {
+        $(this).modalForm({formURL: $(this).data('id')});
+      });
+
+      // Read book buttons
+      $(".read-book").each(function () {
+        $(this).modalForm({formURL: $(this).data('id')});
+      });
+
+      // Delete book buttons
+      $(".delete-book").each(function () {
+        $(this).modalForm({formURL: $(this).data('id')});
+      })
+
+      // Hide message
+      $(".alert").fadeTo(2000, 500).slideUp(500, function(){
+        $(".alert").slideUp(500);
+      });
+
+    });
+  </script>
+{% endblock extrascripts %}
+

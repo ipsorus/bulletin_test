@@ -5,37 +5,97 @@
 {% endblock %}
 
 {% block content %}
-<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-        <ol class="carousel-indicators">
-          <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-          <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-          <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-        </ol>
-        <div class="carousel-inner">
-          {% for image in car.all_images.all %}
-          {% if forloop.first %}
-          <div class="carousel-item active">
-          {% else %}
-          <div class="carousel-item">
-            {% endif %}
-            <img src="{{ image.image_data_link.url }}" class="d-block w-100" alt="...">
-          </div>
-          {% endfor %}
-        </div>
-        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="sr-only">Next</span>
-        </a>
-      </div>
-    <div class="h1 md-5">
-        {{ car.car_title }} 
+<div class="row mb-3">
+    <div class="col-md-8">
+        <h2>{{ car.car_title }}</h2> 
     </div>
-    <p>
-        {{ car.car_description }}
-    </p>
-    
+    <div class="col-md-4 ml-auto">
+       <h2>{{ car.price }} Р</h2>
+    </div>
+
+</div>
+
+        <div class="row">
+          <div class="col-md-7">
+                <div id="carouselExampleIndicators" class="carousel">
+                  <ol class="carousel-indicators">
+                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                  </ol>
+
+                  <div class="carousel-inner d-flex align-content-center flex-wrap mx-auto gallery-img-wrapper">
+                      
+                    {% for image in car.all_images.all %}
+                    
+                    {% if forloop.first %}
+                    
+                        <div class="carousel-item active" style=" border:5px #000;">
+                        <span class="gallery-img-cover" style="background-image: url('{{ image.image_data_link.url }}')"></span>  
+                    {% else %}
+                    
+                        <div class="carousel-item">
+                            <span class="gallery-img-cover" style="background-image: url('{{ image.image_data_link.url }}')"></span>
+                    {% endif %}
+                    
+                            <img src="{{ image.image_data_link.url }}" style="position: relative; width: auto; height: auto;" alt="{{ car.car_title }}">
+                        </div>
+                    {% endfor %}
+     
+                </div>
+
+                  <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                  </a>
+                  <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                  </a>
+                </div>
+                <div class="item-view-block">
+                  <div class="item-params">
+                      <ul class="item-params-list">
+                          <li class="item-params-list-item"> <span class="item-params-label">Марка: </span>{{ car.car_brand }} </li>
+                          <li class="item-params-list-item"> <span class="item-params-label">Модель: </span>{{ car.car_model }} </li>
+                          <li class="item-params-list-item"> <span class="item-params-label">Поколение: </span>{{ car.car_generation }} </li>
+                          <li class="item-params-list-item"> <span class="item-params-label">Модификация: </span>{{ car.modif }} </li>
+                          <li class="item-params-list-item"> <span class="item-params-label">Год выпуска: </span>{{ car.year_of_manufacture }} </li>
+                          <li class="item-params-list-item"> <span class="item-params-label">Пробег: </span>{{ car.car_mileage }} км </li>
+                          <li class="item-params-list-item"> <span class="item-params-label">Состояние: </span>{{ car.condition }} </li>
+                          <li class="item-params-list-item"> <span class="item-params-label">Владельцев по ПТС: </span>{{ car.owners }} </li>
+                          <li class="item-params-list-item"> <span class="item-params-label">VIN или номер кузова: </span>{{ car.vin_number }} </li>
+                          <li class="item-params-list-item"> <span class="item-params-label">Тип кузова: </span>{{ car.type_chassis }} </li>
+                          <li class="item-params-list-item"> <span class="item-params-label">Количество дверей: </span>{{ car.doors }} </li>
+                          <li class="item-params-list-item"> <span class="item-params-label">Тип двигателя: </span>{{ car.engine_type }} </li>
+                          <li class="item-params-list-item"> <span class="item-params-label">Коробка передач: </span>{{ car.transmission }} </li>
+                          <li class="item-params-list-item"> <span class="item-params-label">Привод: </span>{{ car.drive }} </li>
+                          <li class="item-params-list-item"> <span class="item-params-label">Руль: </span>{{ car.steering_side }} </li>
+                          <li class="item-params-list-item"> <span class="item-params-label">Цвет: </span>{{ car.color }} </li>
+                          <li class="item-params-list-item"> <span class="item-params-label">Комплектация: </span>{{ car.equipment }} </li>
+                          <li class="item-params-list-item"> <span class="item-params-label">Место осмотра: </span>{{ car.view_place }} </li>
+                          <li class="item-params-list-item"> <span class="item-params-label">Объём двигателя: </span>{{ car.engine_volume }} л </li>
+                      </ul>
+                   </div>
+                </div>
+
+                <div class="d-flex mt-5 justify-content-center">
+                    {{ car.car_description }}
+                </div>
+              </div>
+ 
+
+          <div class="col-md-4">
+
+                <h5 class="card-title">{{ car.car_title }}</h5>
+                <p class="card-text"><small class="text-muted">{{ car.price }} Р</small></p>
+                <p class="card-text"><small class="text-muted">{{ car.car_mileage }} км, {{ car.engine_type }}, {{ car.engine_volume }} л, {{ car.transmission }}</small></p>                  
+                <p class="card-text"><small class="text-muted">{{ car.view_place }}</small></p>
+                <p class="card-text"><small class="text-muted">{{ car.pub_date }}</small></p>
+
+            </div>
+
+
+</div>
+ 
 {% endblock %}
